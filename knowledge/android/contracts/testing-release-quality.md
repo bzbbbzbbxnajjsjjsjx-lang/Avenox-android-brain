@@ -1,0 +1,18 @@
+---
+{
+  "kind": "note",
+  "project": "avenox-android",
+  "visibility": "internal"
+}
+---
+# Testing, build verification, and release quality contract
+
+- **Purpose and scope:** Make quality claims traceable to the checks actually executed, and keep release artifacts inspectable.
+- **Authority:** The test layers below are mandatory reporting categories, not a claim that tooling or CI is configured. Android testing guidance is upstream recommendation; project thresholds and required suites must be selected when an app exists.
+- **Mandatory project rules:** Report static checks, local unit tests, instrumented/UI tests, accessibility verification, performance measurements, build validation, and artifact/release checks separately as `passed`, `failed`, `not run`, or `not applicable`, with command/environment. A check requiring Android SDK, emulator, device, signing material, network, or release service cannot be marked passed unless it actually ran successfully. Do not equate compilation with tests, tests with device coverage, or artifact generation with release readiness. Release claims identify variant, version, signing/build provenance, and artifact inspected without exposing secrets.
+- **Recommended upstream practices:** Put fast deterministic tests at the lowest practical layer; use instrumented tests for framework/device behavior and Compose UI tests for user-visible interactions. Validate accessibility manually as well as with supported automation. Use release-like builds, inspect manifests/dependencies/artifact contents, and measure performance on representative hardware for relevant claims.
+- **Evidence:** A1 [local tests](https://developer.android.com/training/testing/local-tests), [instrumented tests](https://developer.android.com/training/testing/instrumented-tests), [Compose testing](https://developer.android.com/develop/ui/compose/testing), [Android testing fundamentals](https://developer.android.com/training/testing/fundamentals), and [APK Analyzer](https://developer.android.com/studio/debug/apk-analyzer).
+- **Session verification status:** The linked pages were not independently revalidated in this session. The Cloud proxy denied HTTPS CONNECT with 403 for `developer.android.com`, `kotlinlang.org`, `docs.gradle.org`, and `android.googlesource.com`; the links are canonical references, not claims of page review.
+- **Applicability and version limits:** Test runners, Compose testing APIs, artifact formats, signing, and release tasks depend on selected AGP, AndroidX, SDK, and CI. No test/build system or app artifact is present here; no check is currently passed by this contract.
+- **Verification:** Maintain a per-change gate: (1) **Static** formatting, lint, type/compiler diagnostics and dependency/configuration checks available to the repo; (2) **Unit** deterministic local tests; (3) **Instrumented/UI** device/emulator tests for platform integration and journeys; (4) **Accessibility** automated plus manual assistive-tech, scaling, contrast, focus and target checks; (5) **Performance** benchmark/profile with declared hardware, build and scenario; (6) **Build/artifact** exact variant build, manifest/dependency/artifact inspection, signing and provenance checks as applicable. Mark each category independently and attach evidence.
+- **Exceptions and trade-offs:** A layer may be not applicable for a change only with a short rationale. A change that cannot be exercised locally can use an explicit pending CI/device gate; it must not be reported as passed. Release-blocking requirements and thresholds belong in a later project decision backed by product risk and available infrastructure.
