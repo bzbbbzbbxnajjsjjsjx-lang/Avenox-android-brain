@@ -1,0 +1,24 @@
+# Machine-local Avenox bindings (regenerate with official installer)
+/.beyin-runtime.json
+/.codex/hooks.json
+/.agents/hooks.json
+/.claude/settings.local.json
+/Beyni Güncelle.sh
+/Beyni Güncelle.desktop
+# Disposable Python and SQLite runtime artifacts
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+# Installer-generated adapter bindings with machine-specific paths
+/.claude/hermes-plugin/__init__.py
+/.opencode/plugins/beyin-v3.js
+/.omp/hooks/pre/beyin-v3.ts
+# Disposable runtime files if accidentally written inside the vault
+*.sqlite
+*.sqlite-*
+/.beyin-state/
+/.beyin-cache/
+/.beyin-backups/
